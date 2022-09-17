@@ -1,14 +1,13 @@
 const express = require("express");
 const router = express.Router();
+const { PASSWORDS } = require("../config");
 
 router.use(express.urlencoded({ extended: true }));
-
-const passwords = process.env.PASSWORDS.split(",").map((x) => x.trim());
 
 router.get("/", (req, res) => {
   try {
     let token = req.cookies.token;
-    if (passwords.includes(token)) {
+    if (PASSWORDS.includes(token)) {
       res.redirect(req.query.redirect || "/files");
     } else {
       throw new Error("Invalid token");
@@ -20,7 +19,7 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   try {
-    if (passwords.includes(req.body.password)) {
+    if (PASSWORDS.includes(req.body.password)) {
       res.cookie("token", req.body.password, { maxAge: 24 * 60 * 60 * 1000 });
       res.redirect(req.query.redirect || "/files");
     } else {

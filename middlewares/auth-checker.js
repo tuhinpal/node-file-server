@@ -1,11 +1,10 @@
-require("dotenv").config();
+const { PASSWORDS } = require("../config");
 
 module.exports = function authenticate(req, res, next) {
   try {
-    let availablepwd = process.env.PASSWORDS.split(",").map((x) => x.trim());
     let token = req.cookies.token;
 
-    if (availablepwd.includes(token)) {
+    if (PASSWORDS.includes(token)) {
       next();
     } else {
       throw new Error("Invalid token");
