@@ -25,19 +25,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.all("/", (req, res) => {
-  res.render("upload", {
-    errormessage: req.query.errormessage,
-    message: req.query.message,
-  });
+router.get("/", (req, res) => {
+  res.render("upload");
 });
 
-router.post("/addfile", upload.array("file", 15), (req, res) => {
-  try {
-    res.redirect(307, `/upload?message=File uploaded successfully`);
-  } catch (error) {
-    res.redirect(307, `/upload?errormessage=${error.message}`);
-  }
+router.post("/", upload.array("file", 15), (req, res) => {
+  res.json(req.files);
 });
 
 module.exports = router;

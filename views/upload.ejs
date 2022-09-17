@@ -23,29 +23,21 @@
             Drag and drop your file here or click to select file.
           </p>
         </div>
-        <form
-          method="post"
-          enctype="multipart/form-data"
-          action="/upload/addfile"
-        >
+        <div>
           <div class="space-y-3">
             <input
               type="file"
               name="file"
               multiple
+              id="file"
               class="block text-sm py-10 px-4 rounded-lg w-full border outline-none"
             />
-            <% if (errormessage) { %>
-            <div class="text-center text-red-500 text-xs">
-              <%= errormessage %>
-            </div>
-            <% } %> <% if (message) { %>
-            <div class="text-center text-xs"><%= message %></div>
-            <% } %>
+
+            <div class="text-center text-sm" id="progress"></div>
           </div>
           <div class="text-center mt-4">
             <button
-              type="submit"
+              id="upload"
               class="py-3 text-lg w-full text-white bg-purple-500 rounded-lg mb-2"
             >
               Upload
@@ -53,8 +45,54 @@
 
             <a class="text-purple-500" href="/files">View all files</a>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </body>
+
+  <script>
+    let button = document.getElementById("upload");
+    let file = document.getElementById("file");
+    let progress = document.getElementById("progress");
+
+    button.addEventListener("click", () => {
+      let formData = new FormData();
+
+      if (file.files.length < 1) {
+        progress.innerHTML =
+          "<span class='text-red-500'>Please select a file</span>";
+        return;
+      }
+
+      for (let f of file.files) {
+        formData.append("file", f);
+      }
+
+      console.log(formData);
+
+      // upload with progress
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "/upload");
+      xhr.upload.addEventListener("progress", (e) => {
+        progress.innerHTML = `Uploading <b>${Math.round(
+          (e.loaded / e.total) * 100
+        )}%</b>`;
+      });
+      xhr.addEventListener("load", (e) => {
+        if (xhr.status === 200) {
+          progress.innerHTML = "Upload completed";
+        } else {
+          progress.innerHTML = "<span style='color: red'>Upload failed</span>";
+        }
+      });
+      xhr.addEventListener("error", (e) => {
+        progress.innerHTML = "Error uploading file(s)";
+      });
+      xhr.addEventListener("abort", (e) => {
+        progress.innerHTML = "Upload aborted";
+      });
+
+      xhr.send(formData);
+    });
+  </script>
 </html>
