@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/tailwind.min.css" />
+  </head>
+  <body>
+    <div
+      class="min-h-screen bg-white lg:bg-purple-400 flex justify-center items-center"
+    >
+      <div class="py-12 px-5 lg:px-12 bg-white lg:shadow-2xl rounded-2xl z-20">
+        <div>
+          <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer">
+            Enter password
+          </h1>
+          <p
+            class="lg:w-80 w-full text-center text-sm mb-8 font-semibold text-gray-700 tracking-wide cursor-pointer"
+          >
+            Set your passwords in
+            <mark><code>PASSWORDS</code></mark> environment variable. Passwords
+            should be splitted by <mark><code>,</code></mark> (comma).
+          </p>
+        </div>
+        <form method="post">
+          <div class="space-y-3">
+            <input
+              type="text"
+              placeholder="Password"
+              name="password"
+              class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+            />
+
+            <% if (errormessage) { %>
+            <div class="text-center text-red-500 text-xs">
+              <%= errormessage %>
+            </div>
+            <% } %>
+          </div>
+          <div class="text-center mt-4">
+            <button
+              type="submit"
+              class="py-3 text-lg w-full text-white bg-purple-500 rounded-lg"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

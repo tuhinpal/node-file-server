@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All files</title>
+    <link rel="stylesheet" href="/static/tailwind.min.css" />
+  </head>
+  <body>
+    <div
+      class="min-h-screen bg-white lg:bg-purple-400 flex justify-center items-start py-5"
+    >
+      <div
+        class="py-12 px-5 lg:px-12 bg-white w-full max-w-7xl lg:shadow-2xl rounded-2xl z-20"
+      >
+        <div>
+          <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer">
+            All files
+          </h1>
+
+          <div
+            class="w-full text-center text-lg mb-8 font-semibold text-purple-500 tracking-wide cursor-pointer"
+          >
+            <a href="/upload" class="mr-1">Upload file</a>
+            <button onclick="logout()" class="ml-1 font-semibold">
+              Logout
+            </button>
+        </div>
+          <form class="w-full flex items-center justify-center mb-10">
+            <input
+                type="text"
+                class="w-full max-w-xs border-2 border-purple-500 rounded-lg px-4 py-2 focus:outline-none focus:border-purple-700"
+                placeholder="Search"
+                id="search"
+                name="search"
+                value="<%= search %>"
+            />
+
+            <% if (search) { %>
+                <a
+                class="bg-red-500 text-white text-white rounded-lg px-5 py-2.5 ml-2"
+                href="/files"
+                >
+                    X
+                </a>
+            <% } %>
+
+            <button
+                type="submit"
+                class="bg-purple-500 text-white rounded-lg px-4 py-2.5 ml-2"
+            >
+                Search
+            </button>
+          </form>
+        </div>
+
+        <div>
+            <% for(var i=0; i<files.length; i++) {%>
+                <div class="flex justify-between items-center mb-3 border border-purple-200 bg-purple-50 px-3 py-2 rounded-md text-md lg:text-lg">
+                    <p class="font-semibold text-purple-700 tracking-wide cursor-pointer">
+                        <a href="/get-files/<%= files[i].name %>" target="_blank"><%= files[i].name %> <span class="text-xs font-normal">- <%= files[i].size %></span> </a>
+                    </p>
+                    <p class="font-semibold text-purple-700 tracking-wide cursor-pointer text-sm lg:text-lg">
+                        <a href="/delete-file/<%= files[i].name %>?redirect=<%= encodeURIComponent(`/files${search ? `?search=${search}` : ""}`) %>">Delete</a>
+                    </p>
+                </div>
+            <% } %>
+          </div>
+
+          <% if(!files.length) {%>
+
+            <div class="w-full flex flex-col justify-center items-center">
+
+              <img src="/static/no-file.png" alt="No files" class="w-48" />
+                <p class="text-lg mt-2 mb-3">No files found</p>
+                <a href="/upload" class="bg-purple-500 text-white rounded-lg px-4 py-2.5">Upload file</a>
+            </div>
+
+          <% } else { %>
+            <div class="flex flex-col justify-center items-center mt-5 -mb-2">
+              <p class="text-black">
+                  Total
+                <b><%= files.length %></b>  
+                  files in this page
+              </p>
+            </div>
+          <% } %>
+
+
+        
+    <p class="mt-5">
+        Created by <a href="https://github.com/tuhinpal" class="text-purple-500 font-semibold" target="_blank">Tuhin Kanti Pal</a>
+    </p>
+    </div>
+  </body>
+
+  <script>
+    function logout() {
+      document.cookie =
+        "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      window.location.href = "/login";
+    }
+  </script>
+</html>
