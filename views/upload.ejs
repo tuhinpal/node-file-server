@@ -80,7 +80,10 @@
       });
       xhr.addEventListener("load", (e) => {
         if (xhr.status === 200) {
-          progress.innerHTML = "Upload completed";
+          progress.innerHTML =
+            "<span style='color: green'>Upload completed</span>";
+          // reset the file input
+          file.value = "";
         } else {
           progress.innerHTML = "<span style='color: red'>Upload failed</span>";
         }

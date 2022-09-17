@@ -16,12 +16,15 @@ router.get("/", (req, res) => {
 
   // get sizes of files
   files = files.map((x) => {
+    let stat = fs.statSync(__dirname + "/../public/" + x);
+
     return {
       name: x,
-      size: millify(fs.statSync(__dirname + "/../public/" + x).size, {
+      size: millify(stat.size, {
         units: ["B", "KB", "MB", "GB", "TB"],
         space: true,
       }),
+      createdAt: stat.birthtime.toLocaleString(),
     };
   });
 
