@@ -56,11 +56,11 @@
             <div>
                <% for(var i=0; i<files.length; i++) {%>
                <div class="flex justify-between items-start lg:items-center mb-3 border border-purple-200 bg-purple-50 px-3 py-2 rounded-md text-md lg:text-lg">
-                  <a class="font-semibold text-purple-700 tracking-wide cursor-pointer w-full mr-3" href="/get-files/<%= files[i].name %>" target="_blank">
+                  <a class="font-semibold text-purple-700 tracking-wide cursor-pointer w-full mr-3" href="/files/get/<%= files[i].id %>" target="_blank">
                      <p><%= files[i].name %></p>
                      <p class="text-xs font-normal mt-0.5"> <%= files[i].size %> - <%= files[i].createdAt %></p>
                   </a>
-                  <a href="/delete-file/<%= files[i].name %>?redirect=<%= encodeURIComponent(`/files${search ? `?search=${search}` : ""}`) %>"
+                  <a href="/delete-file/<%= files[i].id %>?redirect=<%= encodeURIComponent(`/files${search ? `?search=${search}` : ""}`) %>"
                     class="font-semibold ml-3 bg-red-500 rounded-md p-1.5 tracking-wide cursor-pointer text-sm lg:text-lg mt-1 lg:mt-0"
                     title="Delete file"
                     >

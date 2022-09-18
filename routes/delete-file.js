@@ -4,7 +4,8 @@ const fs = require("fs");
 
 router.get("/:id", (req, res) => {
   try {
-    fs.unlinkSync(__dirname + "/../public/" + req.params.id);
+    let id = Buffer.from(req.params.id, "hex").toString("utf-8");
+    fs.unlinkSync(__dirname + "/../public/" + id);
   } catch (error) {}
 
   res.redirect(req.query.redirect || "/files");

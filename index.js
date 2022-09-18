@@ -11,7 +11,6 @@ app.set("view engine", "ejs");
 app.use("/static", express.static("static"));
 
 app.get("/", (req, res) => res.redirect("/files"));
-app.use("/get-files", authChecker, express.static("public"));
 app.use("/login", require("./routes/login"));
 app.use("/upload", [authChecker], require("./routes/upload"));
 app.use("/files", authChecker, require("./routes/files"));

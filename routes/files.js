@@ -25,6 +25,7 @@ router.get("/", (req, res) => {
         space: true,
       }),
       createdAt: stat.birthtime.toLocaleString(),
+      id: Buffer.from(x).toString("hex"),
     };
   });
 
@@ -32,6 +33,15 @@ router.get("/", (req, res) => {
     files: files,
     search: req.query.search,
   });
+});
+
+router.get("/get/:id", (req, res) => {
+  try {
+    let id = Buffer.from(req.params.id, "hex").toString("utf-8");
+    res.sendFile(id, { root: __dirname + "/../public" });
+  } catch (error) {
+    res.status(404).send("File not found");
+  }
 });
 
 module.exports = router;
