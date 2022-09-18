@@ -14,7 +14,6 @@ app.get("/", (req, res) => res.redirect("/files"));
 app.use("/login", require("./routes/login"));
 app.use("/upload", [authChecker], require("./routes/upload"));
 app.use("/files", authChecker, require("./routes/files"));
-app.use("/delete-file", authChecker, require("./routes/delete-file"));
 app.use("/editor", authChecker, require("./routes/editor"));
 
 const port = process.env.PORT || 8080;

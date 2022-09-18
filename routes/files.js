@@ -44,4 +44,13 @@ router.get("/get/:id", (req, res) => {
   }
 });
 
+router.get("/delete/:id", (req, res) => {
+  try {
+    let id = Buffer.from(req.params.id, "hex").toString("utf-8");
+    fs.unlinkSync(__dirname + "/../public/" + id);
+  } catch (error) {}
+
+  res.redirect(req.query.redirect || "/files");
+});
+
 module.exports = router;

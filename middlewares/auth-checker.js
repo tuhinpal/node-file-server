@@ -10,9 +10,6 @@ module.exports = function authenticate(req, res, next) {
       throw new Error("Invalid token");
     }
   } catch (error) {
-    res.redirect(
-      307,
-      "/login?redirect=" + encodeURIComponent("/files" + req.url)
-    );
+    res.redirect(307, "/login?redirect=" + encodeURIComponent(req.originalUrl));
   }
 };
