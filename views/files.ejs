@@ -60,12 +60,23 @@
                      <p><%= files[i].name %></p>
                      <p class="text-xs font-normal mt-0.5"> <%= files[i].size %> - <%= files[i].createdAt %></p>
                   </a>
+                  <div class="flex">
                   <a href="/files/delete/<%= files[i].id %>?redirect=<%= encodeURIComponent(`/files${search ? `?search=${search}` : ""}`) %>"
                     class="font-semibold ml-3 bg-red-500 rounded-md p-1.5 tracking-wide cursor-pointer text-sm lg:text-lg mt-1 lg:mt-0"
                     title="Delete file"
                     >
                     <img src="/static/delete-icon.svg" alt="delete" class="w-4 h-4" />
                   </a>
+
+                  <button
+                     class="font-semibold ml-2 bg-purple-500 rounded-md p-1.5 tracking-wide cursor-pointer text-sm lg:text-lg mt-1 lg:mt-0"
+                     title="Rename file"
+                     onclick="rename('<%= files[i].id %>', '<%= files[i].name %>', '<%= search %>')"
+                     >
+                     <img src="/static/rename-icon.svg" alt="delete" class="w-4 h-4" />
+                  </button> 
+
+                  </div>
                </div>
                <% } %>
             </div>
@@ -97,6 +108,15 @@
         document.cookie =
           "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         window.location.href = "/login";
+      }
+
+      function rename(id, oldname, search) {
+        const name = prompt(`Enter new name for:\n${oldname}`);
+        if (name) {
+          window.location.href = `/files/rename/${id}?name=${name}&redirect=${encodeURIComponent(
+            `/files${search ? `?search=${search}` : ""}`
+          )}`;
+        }
       }
    </script>
 </html>
