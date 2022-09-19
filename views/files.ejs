@@ -113,7 +113,7 @@
       function rename(id, oldname, search) {
         const name = prompt(`Enter new name for:\n${oldname}`);
         if (name) {
-          window.location.href = `/files/rename/${id}?name=${name}&redirect=${encodeURIComponent(
+          window.location.href = `/files/rename/${id}?name=${encodeURIComponent(name)}&redirect=${encodeURIComponent(
             `/files${search ? `?search=${search}` : ""}`
           )}`;
         }
