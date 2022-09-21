@@ -9,7 +9,7 @@ async function batteryStatus() {
         reject(new Error("Timeout"));
       }, 1000);
 
-      let d = await termux.batteryStatus().run();
+      let d = await api.batteryStatus().run();
       let str = `${d.percentage}%`;
       if (d.status === "CHARGING") str += " (charging)";
       resolve(str);
