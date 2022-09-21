@@ -15,6 +15,7 @@ app.use("/login", require("./routes/login"));
 app.use("/upload", [authChecker], require("./routes/upload"));
 app.use("/files", authChecker, require("./routes/files"));
 app.use("/editor", authChecker, require("./routes/editor"));
+app.use("/tmux-api", authChecker, require("./routes/tmux-api"));
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
