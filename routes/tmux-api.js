@@ -10,10 +10,13 @@ router.get("/click-picture", async (req, res) => {
     let camId = req.query.camId || 0;
     camId = parseInt(camId);
 
+    if (camId > 1) camId = 1;
+    if (camId < 0) camId = 0;
+
     await new Promise((resolve, reject) => {
       api
         .cameraPhoto()
-        .camera(0)
+        .camera(camId)
         .outputFile(`${__dirname}/../public/${id}`)
         .run()
         .then(() => resolve());
