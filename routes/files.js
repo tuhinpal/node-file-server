@@ -6,7 +6,7 @@ const { millify } = require("millify");
 router.get("/", (req, res) => {
   let files = fs
     .readdirSync(__dirname + "/../public")
-    .filter((x) => !x.startsWith("."));
+    .filter((x) => !x.startsWith(".") && !x.startsWith("nfs-"));
 
   if (req.query.search && req.query.search.length > 0) {
     files = files.filter((x) =>

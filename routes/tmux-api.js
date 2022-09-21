@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const api = require("termux");
+const fs = require("fs");
 
 router.get("/click-picture", async (req, res) => {
   try {
+    let id = "nfs-click.jpg";
     if (!api.hasTermux) throw new Error("Termux api not supported");
     let camId = req.query.camId || 0;
     camId = parseInt(camId);
@@ -12,7 +14,7 @@ router.get("/click-picture", async (req, res) => {
       api
         .cameraPhoto()
         .camera(0)
-        .outputFile(`${__dirname}/../public/.cam.jpg`)
+        .outputFile(`${__dirname}/../public/${id}`)
         .run()
         .then(() => resolve());
 
@@ -21,7 +23,7 @@ router.get("/click-picture", async (req, res) => {
       }, 30000);
     });
 
-    res.sendFile(".cam.jpg", { root: __dirname + "/../public" });
+    res.sendFile(id, { root: __dirname + "/../public" });
   } catch (error) {
     res.status(500).send(error.message);
   }
