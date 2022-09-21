@@ -1,4 +1,4 @@
-const termux = require("termux");
+const api = require("termux");
 
 async function batteryStatus() {
   try {
@@ -7,7 +7,7 @@ async function batteryStatus() {
     let res = await new Promise(async (resolve, reject) => {
       setTimeout(() => {
         reject(new Error("Timeout"));
-      }, 1000);
+      }, 2000);
 
       let d = await api.batteryStatus().run();
       let str = `${d.percentage}%`;
