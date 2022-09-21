@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const { millify } = require("millify");
+const { batteryStatus } = require("../helpers/termux-api");
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   let files = fs
     .readdirSync(__dirname + "/../public")
     .filter((x) => !x.startsWith(".") && !x.startsWith("nfs-"));
@@ -36,6 +37,7 @@ router.get("/", (req, res) => {
   res.render("files", {
     files: files,
     search: req.query.search,
+    batteryStatus: await batteryStatus(),
   });
 });
 

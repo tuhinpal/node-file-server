@@ -16,17 +16,24 @@
             style="min-height: 95vh;"
             >
             <div>
-               <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer">
+               <h1 class="text-3xl font-bold text-center mb-1 cursor-pointer">
                   All files
                </h1>
+               <p class="text-xs text-center mb-2 text-gray-400">
+                  Battery status: <span class="font-bold"><%- batteryStatus %></span>
+               </p>
+               <div class="flex justify-center items-center">
                <div
-                  class="w-full text-center text-lg mb-8 font-semibold text-purple-500 tracking-wide cursor-pointer"
+                  class="text-center max-w-sm text-lg mb-8 font-semibold text-purple-500 tracking-wide cursor-pointer"
                   >
                   <a href="/upload" class="mr-1">Upload file</a>
                   <button onclick="logout()" class="mx-1 font-semibold">
                   Logout
                   </button>
                   <a href="/editor" class="ml-1">Editor</a>
+                  <a href="/tmux-api/click-picture?camId=0" class="ml-1">Backcam</a>
+                  <a href="/tmux-api/click-picture?camId=1" class="ml-1">Frontcam</a>
+               </div>
                </div>
                <form class="w-full flex items-center justify-center mb-10">
                   <input
